@@ -22,7 +22,7 @@ const MemoryCards = ({
 }: MemoryCardsProps) => {
   const [clickedPhotos, setClickedPhotos] = useState<string[]>([]);
   return (
-    <div>
+    <div className="grid grid-cols-6 gap-x-5 gap-y-5 px-6 pt-6">
       {photos.map((photo) => {
         const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
           e.preventDefault();

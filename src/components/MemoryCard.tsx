@@ -7,7 +7,10 @@ interface MemoryCardProps {
 
 const MemoryCard = ({ photo, handleClick }: MemoryCardProps) => {
   return (
-    <div onClick={handleClick}>
+    <div
+      className="border border-black hover:opacity-60 hover:cursor-pointer"
+      onClick={handleClick}
+    >
       <img src={photo.src} alt={photo.description} />
       <p>{photo.description}</p>
     </div>
