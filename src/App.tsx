@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import MemoryCards from "./components/MemoryCards";
 import photoData from "./utils";
+import { v4 as uuidv4 } from "uuid";
 
 const PHOTO_ENDPOINT = "https://jsonplaceholder.typicode.com/photos/1";
 
 const NUM_PHOTOS = 12;
+const ORIGINAL_ORDERING: number[] = [];
+for (let i = 0; i < NUM_PHOTOS; i++) {
+  ORIGINAL_ORDERING.push(i);
+}
 
 const App = () => {
   const [score, setScore] = useState<number>(0);
@@ -34,7 +39,12 @@ const App = () => {
           photo_urls.map((url) => fetchPhoto(url))
         );
         const photoInfos: photoData[] = photos.map((photoJson) => {
-          return { src: photoJson.url, description: photoJson.title };
+          const id = uuidv4();
+          return {
+            id: id,
+            src: photoJson.url,
+            description: photoJson.title,
+          };
         });
         setPhotos(photoInfos);
         setIsLoading(false);
@@ -65,13 +75,20 @@ const App = () => {
         <p>Score: {score}</p>
         <p>Best score: {bestScore}</p>
       </div>
-      <MemoryCards
-        photos={photos}
-        score={score}
-        setScore={setScore}
-        bestScore={bestScore}
-        setBestScore={setBestScore}
-      />
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : error == null ? (
+        <MemoryCards
+          photos={photos}
+          setPhotos={setPhotos}
+          score={score}
+          setScore={setScore}
+          bestScore={bestScore}
+          setBestScore={setBestScore}
+        />
+      ) : (
+        `The following error occured while setting up the game: ${error}`
+      )}
     </>
   );
 };
