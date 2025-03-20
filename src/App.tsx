@@ -3,16 +3,15 @@ import MemoryCards from "./components/MemoryCards";
 import photoData from "./utils";
 import { v4 as uuidv4 } from "uuid";
 
-const PHOTO_ENDPOINT =
-  "https://via.assets.so/img.jpg?w=200&h=200&tc=black&bg=gray&t=Placeholder";
+const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
+const APP_API_URL = import.meta.env.VITE_API_URL;
+const PHOTO_ENDPOINT = `${APP_API_URL}/photos/random?client_id=${ACCESS_KEY}`;
 
-const NUM_PHOTOS = 12;
+const NUM_PHOTOS = 2;
 const ORIGINAL_ORDERING: number[] = [];
 for (let i = 0; i < NUM_PHOTOS; i++) {
   ORIGINAL_ORDERING.push(i);
 }
-
-const UNSPLASH;
 
 const App = () => {
   const [score, setScore] = useState<number>(0);
@@ -46,8 +45,8 @@ const App = () => {
           console.log(photoJson);
           return {
             id: id,
-            src: photoJson.url,
-            description: photoJson.title,
+            src: photoJson.urls.regular,
+            description: photoJson.description,
           };
         });
         setPhotos(photoInfos);
