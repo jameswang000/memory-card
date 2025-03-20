@@ -7,7 +7,7 @@ const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 const APP_API_URL = import.meta.env.VITE_API_URL;
 const PHOTO_ENDPOINT = `${APP_API_URL}/photos/random?client_id=${ACCESS_KEY}`;
 
-const NUM_PHOTOS = 2;
+const NUM_PHOTOS = 12;
 const ORIGINAL_ORDERING: number[] = [];
 for (let i = 0; i < NUM_PHOTOS; i++) {
   ORIGINAL_ORDERING.push(i);
